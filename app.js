@@ -23,5 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoute);
 app.use("/api/product", productRoute);
 app.use("/api/chat", chatRoute);
+app.use("/", async (req, res) => {
+  try {
+    return res.status(200).send("welcome home");
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+});
 
 app.listen(PORT, () => console.log("server is running"));
