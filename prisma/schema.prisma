@@ -1,0 +1,69 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id String @id @default(cuid())
+  username String
+  avatar String
+  email String @unique
+  createdAt DateTime @default(now())
+  password String
+  home Home[]
+  savedPost SavedPost[]
+  chat Chat[]
+}
+
+
+model Home {
+  id String @id @default(cuid())
+  title String
+  price Int
+  address String
+  city String
+  bedroom Int
+  bathroom Int
+  latitude Int
+  longitude Int
+  type String
+  desc String
+  isSaved Boolean @default(false)
+  userId String
+  images String[]
+  user User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  savedPost SavedPost[]
+}
+
+model SavedPost {
+  id        String   @id @default(cuid()) 
+  user      User     @relation(fields: [userId], references: [id])
+  home Home @relation(fields: [homeId],references: [id])
+  userId    String   
+  homeId    String  
+  createdAt DateTime @default(now())
+  @@index([userId ,homeId ])
+}
+ 
+model Chat {
+  id String @id @default(cuid())
+  user User[]  
+  userIDs String[]
+  seenBy String[]
+  createdBy DateTime @default(now())
+  lastmessage String?
+  message Message[]
+}
+model Message{
+  id String @id @default(cuid())
+  userId String
+  text String
+  chatId String
+  chat Chat @relation(fields: [chatId],references: [id])
+  createdBy DateTime @default(now())
+}
