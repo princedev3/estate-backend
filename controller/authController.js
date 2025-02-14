@@ -51,14 +51,14 @@ export const register = async (req, res) => {
 const setToken = async (response, accessToken, refreshToken) => {
   response.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    sameSite: "lax",
+    secure: false,
     maxAge: 60 * 60 * 24 * 7 * 1000,
   });
   response.cookie("accessToken", accessToken, {
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    sameSite: "lax",
+    secure: false,
     maxAge: 60 * 60 * 24 * 7 * 1000,
   });
 };

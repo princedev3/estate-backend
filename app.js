@@ -19,6 +19,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoute);
 app.use("/api/product", productRoute);
