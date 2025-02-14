@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 const app = express();
-
+const PORT = process.env.PORT || 8080;
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
@@ -24,4 +24,4 @@ app.use("/api/auth", authRoute);
 app.use("/api/product", productRoute);
 app.use("/api/chat", chatRoute);
 
-app.listen(5000, () => console.log("server is running"));
+app.listen(PORT, () => console.log("server is running"));
