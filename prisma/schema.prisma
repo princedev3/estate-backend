@@ -66,4 +66,5 @@ model Message{
   chatId String
   chat Chat @relation(fields: [chatId],references: [id])
   createdBy DateTime @default(now())
+  @@index([chatId ,userId])
 }

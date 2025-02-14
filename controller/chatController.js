@@ -141,11 +141,28 @@ export const addMessage = async (req, res) => {
       },
     });
     pusherServer.trigger("listen-message", "update-message", {
-      message: body.text,
+      ...createdMessage,
     });
     return res.status(200).json(createdMessage);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "can not create message" });
+  }
+};
+
+export const getAllMessage = async (req, res) => {
+  try {
+    const chatId = req.params.id;
+    const userId = req.userDetails.userId;
+    const messages = await prisma.message.findMany({
+      where: {
+        chatId,
+        // userId,
+      },
+    });
+    return res.status(200).json(messages);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "can not get all message" });
   }
 };
