@@ -52,14 +52,14 @@ const setToken = async (response, accessToken, refreshToken) => {
   response.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     sameSite: "none",
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV === "production" ? true : false,
     path: "/",
     maxAge: 60 * 60 * 24 * 7 * 1000,
   });
   response.cookie("accessToken", accessToken, {
     httpOnly: true,
     sameSite: "none",
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV === "production" ? true : false,
     path: "/",
     maxAge: 60 * 60 * 24 * 7 * 1000,
   });
