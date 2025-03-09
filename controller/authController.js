@@ -81,7 +81,7 @@ export const login = async (req, res) => {
     }
     const { accessToken, refreshToken } = await generateToken(user?.id, email);
 
-    await req.cookie("accessToken", accessToken, {
+    await res.cookie("accessToken", accessToken, {
       httpOnly: true,
       sameSite: "none",
       secure: process.env.NODE_ENV === "production",
@@ -89,7 +89,7 @@ export const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    await req.cookie("refreshToken", refreshToken, {
+    await res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       sameSite: "none",
       secure: process.env.NODE_ENV === "production",
