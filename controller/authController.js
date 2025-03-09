@@ -80,7 +80,22 @@ export const login = async (req, res) => {
       return;
     }
     const { accessToken, refreshToken } = await generateToken(user?.id, email);
-    const ress = await setToken(res, accessToken, refreshToken);
+
+    await req.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    await req.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
     console.log("Cookies set:", res.getHeaders()["set-cookie"]);
     const { password: userPassword, ...userProperties } = user;
