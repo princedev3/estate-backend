@@ -82,6 +82,7 @@ export const login = async (req, res) => {
     const { accessToken, refreshToken } = await generateToken(user?.id, email);
     const ress = await setToken(res, accessToken, refreshToken);
 
+    console.log("Cookies set:", res.getHeaders()["set-cookie"]);
     const { password: userPassword, ...userProperties } = user;
     res
       .status(200)
