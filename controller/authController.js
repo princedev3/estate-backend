@@ -53,12 +53,14 @@ const setToken = async (response, accessToken, refreshToken) => {
     httpOnly: true,
     sameSite: "none",
     secure: process.env.NODE_ENV === "production",
+    domain: "https://estate-backend-6esa.onrender.com",
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   response.cookie("accessToken", accessToken, {
     httpOnly: true,
     sameSite: "none",
+    domain: "https://estate-backend-6esa.onrender.com",
     secure: process.env.NODE_ENV === "production",
     path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
